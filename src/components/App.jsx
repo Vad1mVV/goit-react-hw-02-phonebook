@@ -11,20 +11,26 @@ export class App extends Component {
     filter: ''
   }
 
-  contactChange = (e) => {
-    e.preventDefault()
-
-    if(this.state.contacts.some(contact => contact.name.includes(e.target.name.value))) {
-      return alert(e.target.name.value + ' already in contacts')
+  contactChange = (data) => {
+    if(this.state.contacts.some(contact => contact.name === data.name)) {
+      return alert(data.name + ' already in contacts')
     }
 
     const contact = {
-      name: e.target.name.value,
-      number: e.target.number.value,
+      name: data.name,
+      number: data.number,
       id: nanoid(),
     }
     this.setState({
       contacts: [...this.state.contacts, contact]
+    })
+  }
+
+  deleteContact = (e) => {
+    e.preventDefault()
+
+    this.setState({
+      contacts: this.state.contacts.filter(contact => contact.id !== e.target.id)
     })
   }
 
@@ -40,7 +46,7 @@ export class App extends Component {
       <ContactForm contactChange={this.contactChange} />
       <Title title='Contacts' />
       <Filter filtration={this.filtration} />
-      <ContactList contacts={this.state.contacts} filter={this.state.filter} />
+      <ContactList contacts={this.state.contacts} filter={this.state.filter} deleteContact={this.deleteContact} />
     </>;
   }
 }
