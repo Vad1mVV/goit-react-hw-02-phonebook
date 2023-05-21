@@ -30,5 +30,5 @@ export const ContactForm = ({contactChange}) => {
 }
 
 ContactForm.propTypes = {
-    contacts: PropTypes.object
+    contactChange: PropTypes.func
 }

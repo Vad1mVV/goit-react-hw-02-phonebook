@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 
-export const ContactList = ({contacts}) => {
+export const ContactList = ({contacts, filter}) => {
     return <ul>
-        {contacts.map(contact => (
-            <li key={contact.id} >{contact.name} {contact.number}</li>
+        {contacts.filter(contact => contact.name.toLowerCase().includes(filter)).map(contact => (
+            <li key={contact.id} >{contact.name}: {contact.number}</li>
         ))}
     </ul>
 }
 
 ContactList.propTypes = {
-    contacts: PropTypes.array
+    contacts: PropTypes.array,
+    filter: PropTypes.string,
 }
